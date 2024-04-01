@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notification Display</title>
+</head>
+<body>
+    <h1>Notification Display</h1>
+    <ul id="notifications"></ul>
+
+    <script>
+        async function fetchNotifications() {
+            const response = await fetch('/notifications/');
+            const notifications = await response.json();
+            const notificationsList = document.getElementById('notifications');
+            notificationsList.innerHTML = '';
+
+            notifications.forEach(notification => {
+                const listItem = document.createElement('li');
+                listItem.textContent = notification;
+                notificationsList.appendChild(listItem);
+            });
+        }
+
+        fetchNotifications();
+        setInterval(fetchNotifications, 5000); // Refresh notifications every 5 seconds
+    </script>
+</body>
+</html>
